@@ -20,6 +20,7 @@ const astro = await readPreset('astro.json');
 const strapi = await readPreset('strapi.json');
 
 assert.ok(base.extends.includes('config:recommended'));
+assert.equal(base.timezone, 'America/Merida');
 assert.equal(base.platformAutomerge, false);
 assert.notEqual(base.ignoreTests, true);
 assert.equal(base.vulnerabilityAlerts.enabled, true);
