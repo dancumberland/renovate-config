@@ -1,0 +1,35 @@
+# ABOUTME: Validates every shared Renovate preset before it can change fleet behavior.
+# ABOUTME: Runs policy assertions plus Renovate's official configuration validator.
+name: Validate Renovate policy
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Policy and schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        # actions/checkout v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Set up Node.js
+        # actions/setup-node v7.0.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 24.11.0
+
+      - name: Check fleet safety policy
+        run: node scripts/validate-policy.mjs
+
+      - name: Validate Renovate configuration
+        run: npx --yes --package renovate@44.52.1 renovate-config-validator default.json astro.json strapi.json

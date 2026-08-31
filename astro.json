@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "CI-gated patch automerge for Dan-owned Astro sites.",
+  "extends": ["./default"],
+  "packageRules": [
+    {
+      "description": "Automerge ordinary npm patch releases only after all repository checks pass.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": [
+        "dependencies",
+        "devDependencies",
+        "optionalDependencies"
+      ],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": false
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Human-reviewed dependency updates for Strapi applications.",
+  "extends": ["./default"],
+  "packageRules": [
+    {
+      "description": "Keep the Strapi framework, plugins, and providers on compatible versions.",
+      "matchPackageNames": ["@strapi/**"],
+      "groupName": "Strapi ecosystem",
+      "automerge": false
+    }
+  ]
+}

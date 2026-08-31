@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Shared conservative dependency policy for Dan Cumberland's Astro and Strapi sites.",
+  "extends": ["config:recommended"],
+  "timezone": "America/Chicago",
+  "dependencyDashboard": true,
+  "prConcurrentLimit": 6,
+  "prHourlyLimit": 2,
+  "prCreation": "not-pending",
+  "internalChecksFilter": "strict",
+  "platformAutomerge": false,
+  "automergeType": "pr",
+  "labels": ["dependencies"],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": false,
+    "prCreation": "immediate",
+    "minimumReleaseAge": null,
+    "schedule": ["at any time"],
+    "labels": ["dependencies", "security"]
+  },
+  "packageRules": [
+    {
+      "description": "Wait through npm's unpublish window before proposing patch releases.",
+      "matchUpdateTypes": ["patch"],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "Give minor releases two weeks of ecosystem use before proposing them.",
+      "matchUpdateTypes": ["minor"],
+      "minimumReleaseAge": "14 days"
+    },
+    {
+      "description": "Keep major releases under deliberate human review after a longer soak.",
+      "matchUpdateTypes": ["major"],
+      "minimumReleaseAge": "30 days",
+      "automerge": false
+    },
+    {
+      "description": "Update the Astro framework and its integrations together.",
+      "matchPackageNames": ["astro", "@astrojs/**"],
+      "groupName": "Astro ecosystem"
+    },
+    {
+      "description": "Keep workflow-code changes under human review.",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "minimumReleaseAge": "14 days",
+      "automerge": false
+    }
+  ]
+}
